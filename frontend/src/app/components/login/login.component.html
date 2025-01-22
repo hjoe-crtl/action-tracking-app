@@ -1,0 +1,60 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="text-center mb-0">Connexion</h4>
+        </div>
+        <div class="card-body">
+          <app-alert [message]="alertMessage" [type]="alertType"></app-alert>
+          
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="username" class="form-label">Nom d'utilisateur</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                formControlName="username"
+                [ngClass]="{'is-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}"
+                placeholder="Entrez votre nom d'utilisateur"
+              >
+              <div class="invalid-feedback">
+                {{ getErrorMessage('username') }}
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="password" class="form-label">Mot de passe</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+                placeholder="Entrez votre mot de passe"
+              >
+              <div class="invalid-feedback">
+                {{ getErrorMessage('password') }}
+              </div>
+            </div>
+            
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="loginForm.invalid || loading"
+              >
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                {{ loading ? 'Connexion en cours...' : 'Se connecter' }}
+              </button>
+              <a routerLink="/register" class="btn btn-outline-secondary">
+                Pas encore inscrit ? Créer un compte
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

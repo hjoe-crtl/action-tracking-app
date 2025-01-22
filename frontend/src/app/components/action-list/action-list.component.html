@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <h2>Liste des Actions</h2>
+  
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Type</th>
+          <th>Structure</th>
+          <th>Livrables Attendus</th>
+          <th>Livrables Réalisés</th>
+          <th>Taux de Réalisation</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let action of actions">
+          <td>{{ action.titre }}</td>
+          <td>{{ action.typeAction.libelle }}</td>
+          <td>{{ action.structure.nom }}</td>
+          <td>{{ action.nbLivrablesAttendus }}</td>
+          <td>
+            <input type="number" 
+                   [value]="action.nbLivrablesRealises"
+                   (change)="updateTauxRealisation(action, $event.target.value)"
+                   [max]="action.nbLivrablesAttendus"
+                   min="0"
+                   class="form-control form-control-sm">
+          </td>
+          <td>
+            <div class="progress">
+              <div class="progress-bar" 
+                   role="progressbar" 
+                   [style.width.%]="action.tauxRealisation"
+                   [attr.aria-valuenow]="action.tauxRealisation" 
+                   aria-valuemin="0" 
+                   aria-valuemax="100">
+                {{ action.tauxRealisation }}%
+              </div>
+            </div>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-info me-2">Détails</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

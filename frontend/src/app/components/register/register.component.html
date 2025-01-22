@@ -1,0 +1,107 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="text-center mb-0">Inscription</h4>
+        </div>
+        <div class="card-body">
+          <app-alert [message]="alertMessage" [type]="alertType"></app-alert>
+          
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="nom" class="form-label">Nom</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nom"
+                  formControlName="nom"
+                  [ngClass]="{'is-invalid': registerForm.get('nom')?.invalid && registerForm.get('nom')?.touched}"
+                  placeholder="Entrez votre nom"
+                >
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('nom') }}
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="prenom" class="form-label">Prénom</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="prenom"
+                  formControlName="prenom"
+                  [ngClass]="{'is-invalid': registerForm.get('prenom')?.invalid && registerForm.get('prenom')?.touched}"
+                  placeholder="Entrez votre prénom"
+                >
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('prenom') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}"
+                placeholder="Entrez votre email"
+              >
+              <div class="invalid-feedback">
+                {{ getErrorMessage('email') }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="username" class="form-label">Nom d'utilisateur</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                formControlName="username"
+                [ngClass]="{'is-invalid': registerForm.get('username')?.invalid && registerForm.get('username')?.touched}"
+                placeholder="Choisissez un nom d'utilisateur"
+              >
+              <div class="invalid-feedback">
+                {{ getErrorMessage('username') }}
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="password" class="form-label">Mot de passe</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}"
+                placeholder="Choisissez un mot de passe"
+              >
+              <div class="invalid-feedback">
+                {{ getErrorMessage('password') }}
+              </div>
+            </div>
+            
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="registerForm.invalid || loading"
+              >
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                {{ loading ? 'Inscription en cours...' : "S'inscrire" }}
+              </button>
+              <a routerLink="/login" class="btn btn-outline-secondary">
+                Déjà inscrit ? Se connecter
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
