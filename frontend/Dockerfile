@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installer les dépendances, y compris @ng-bootstrap/ng-bootstrap
-RUN npm install @ng-bootstrap/ng-bootstrap
+RUN npm install --legacy-peer-deps
 
 # Copier le reste des fichiers de l'application
 COPY . .
