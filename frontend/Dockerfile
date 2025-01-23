@@ -1,12 +1,23 @@
-FROM node:18-alpine AS build
-WORKDIR /app
+# Utiliser l'image Node.js
+FROM node:14
+
+# Définir le répertoire de travail
+WORKDIR /usr/src/app
+
+# Copier les fichiers de package
 COPY package*.json ./
+
+# Installer les dépendances
 RUN npm install
+
+# Copier le reste des fichiers de l'application
 COPY . .
+
+# Construire l'application
 RUN npm run build
 
-FROM nginx:alpine
-COPY --from=build /app/dist/action-tracking-frontend /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Exposer le port
+EXPOSE 4200
+
+# Commande pour démarrer l'application
+CMD ["npm", "start"]
