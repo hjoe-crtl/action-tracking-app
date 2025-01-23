@@ -1,8 +1,16 @@
 FROM node:22.13.1 AS build
 WORKDIR /app
+
+# Copier les fichiers de package
 COPY package*.json ./
-RUN npm install
+
+# Installer les dépendances, y compris @ng-bootstrap/ng-bootstrap
+RUN npm install @ng-bootstrap/ng-bootstrap
+
+# Copier le reste des fichiers de l'application
 COPY . .
+
+# Construire l'application
 RUN npm run build
 
 FROM nginx:alpine
