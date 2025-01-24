@@ -1,4 +1,4 @@
-FROM node:22.13.1 AS build
+FROM node:22.0.0 AS build
 WORKDIR /app
 
 # Copier les fichiers de package
