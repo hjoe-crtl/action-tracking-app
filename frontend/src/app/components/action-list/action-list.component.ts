@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionService } from '../../services/action.service';
 import { Action } from '../../models/action.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-action-list',
@@ -18,24 +19,24 @@ export class ActionListComponent implements OnInit {
 
   loadActions(): void {
     this.actionService.getActions().subscribe(
-      (data) => {
-        this.actions = data;
+      (actions: Action[]) => {
+        this.actions = actions;
       },
-      (error) => {
-        console.error('Erreur lors du chargement des actions:', error);
+      (error: HttpErrorResponse) => {
+        console.error('Error loading actions:', error);
       }
     );
   }
 
   updateTauxRealisation(action: Action, nbLivrablesRealises: number): void {
     this.actionService.updateTauxRealisation(action.id!, nbLivrablesRealises).subscribe(
-      (updatedAction) => {
+      (updatedAction: Action) => {
         const index = this.actions.findIndex(a => a.id === updatedAction.id);
         if (index !== -1) {
           this.actions[index] = updatedAction;
         }
       },
-      (error) => {
+      (error: Error) => {
         console.error('Erreur lors de la mise à jour du taux de réalisation:', error);
       }
     );
